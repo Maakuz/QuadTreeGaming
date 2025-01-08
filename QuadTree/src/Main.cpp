@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
-
-int main()
-{
+#include "QuadTree.h"
+int main() {
     sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
+    QuadTree tree(sf::Vector2f(100,100), 200, 0);
+
 
     while (window.isOpen())
     {

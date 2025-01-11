@@ -18,18 +18,16 @@ public:
         sf::Vector2f m_pos;
         float m_size;
         std::vector<QuadTreeNode> m_nodes;
-        T value;
+        T m_value;
 
     public:
         QuadTreeNode() {}
         QuadTreeNode(sf::Vector2f pos, float size);
         void subdivide(sf::Vector2f targetPos, T val, int depth = 0);
         std::vector<QuadTreeNode>* getNodesPtr() { return &m_nodes; }
-        sf::Vector2f getPos() { return m_pos; }
-        float getSize() { return m_size; }
-        bool isLeaf() { return m_nodes.size() == 0; }
-
-
+        sf::Vector2f getPos() const { return m_pos; }
+        float getSize() const { return m_size; }
+        bool isLeaf() const { return m_nodes.size() == 0; }
     };
 
 private:
@@ -41,7 +39,9 @@ private:
 public:
     QuadTree(sf::Vector2f pos, float size, int depth);
 
-    QuadTreeNode getRoot() { return m_node; }
+    QuadTreeNode getRoot() const { return m_node; }
+    int getDepth() const { return m_depth; }
+    sf::Vector2f getPos() const { return m_node.getPos(); }
     void insert(T val, sf::Vector2f pos);
 
 };

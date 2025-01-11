@@ -48,15 +48,22 @@ int main() {
 }
 
 void drawNode(QuadTree<int>::QuadTreeNode* node, sf::RenderWindow* wind, int depth) { 
+    static bool isInit = false;
+    static sf::RectangleShape rect;
+
+    if (!isInit) {
+        rect.setOutlineColor(sf::Color(0, 255, 0));
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineThickness(1);
+        isInit = true;
+    }
+    
     if (!node->isLeaf()) {
         for (auto n : *node->getNodesPtr()) {
             drawNode(&n, wind, depth + 1);
         }
     }
-    sf::RectangleShape rect(sf::Vector2f(1, 1) * node->getSize());
-    rect.setFillColor(sf::Color::Transparent);
-    rect.setOutlineColor(sf::Color(0, 255, 0));
+    rect.setSize(sf::Vector2f(1, 1) * node->getSize());
     rect.setPosition(node->getPos());
-    rect.setOutlineThickness(1);
     wind->draw(rect);
 }
